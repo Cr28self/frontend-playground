@@ -14,6 +14,8 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ReducerImport } from './routes/reducer'
+import { Route as FigmaImport } from './routes/figma'
+import { Route as BuilderDemoImport } from './routes/builder-demo'
 
 // Create Virtual Routes
 
@@ -52,6 +54,16 @@ const ReducerRoute = ReducerImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const FigmaRoute = FigmaImport.update({
+  path: '/figma',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BuilderDemoRoute = BuilderDemoImport.update({
+  path: '/builder-demo',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -76,6 +88,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/builder-demo': {
+      id: '/builder-demo'
+      path: '/builder-demo'
+      fullPath: '/builder-demo'
+      preLoaderRoute: typeof BuilderDemoImport
+      parentRoute: typeof rootRoute
+    }
+    '/figma': {
+      id: '/figma'
+      path: '/figma'
+      fullPath: '/figma'
+      preLoaderRoute: typeof FigmaImport
       parentRoute: typeof rootRoute
     }
     '/reducer': {
@@ -134,6 +160,8 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
+  BuilderDemoRoute,
+  FigmaRoute,
   ReducerRoute,
   AboutLazyRoute,
   ContextLazyRoute,
@@ -152,6 +180,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/builder-demo",
+        "/figma",
         "/reducer",
         "/about",
         "/context",
@@ -163,6 +193,12 @@ export const routeTree = rootRoute.addChildren({
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/builder-demo": {
+      "filePath": "builder-demo.tsx"
+    },
+    "/figma": {
+      "filePath": "figma.tsx"
     },
     "/reducer": {
       "filePath": "reducer.tsx"
