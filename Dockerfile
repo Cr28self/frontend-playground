@@ -1,4 +1,4 @@
-FROM node:20-alpine AS build
+FROM node:20-alpine
 
 
 # create a user with permissions to run the app
@@ -38,19 +38,9 @@ USER app
 # install dependencies
 RUN npm install
 
-# Copy all files and build the app
-COPY . .
-RUN npm run build
-
-# Step 2: Serve the application using Nginx
-FROM nginx:alpine
+#  CMD : Container 생성시, 실행되는 명령어
+CMD ["npm","run","dev"]
 
 
-# Copy the build output to Nginx's static files directory
-COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+# docker build -t {이미지명} .
