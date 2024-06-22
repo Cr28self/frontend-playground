@@ -13,6 +13,19 @@ type RC<K extends keyof any, T> = {
 // keyof any & object --> 교집합 연산 사실상 불가능하므로. ( 원시 타입 & 원시 타입이 아닌 타입 ) == never 타입!!
 // never
 
+// unknown 모든 타입의 상위 타입 ( any는 타입 검사를 무시, unknonwn은 타입 검사를 무조건해야 )
+const unknownValue: unknown = "hello";
+
+//error
+unknownValue.toUpperCase();
+
+// unknown : 반드시 타입 검사를 수행해야함
+if (typeof unknownValue === "string") {
+  unknownValue.toUpperCase();
+}
+
+type all = string & unknown;
+
 type res = keyof any & object;
 
 type keyAny = keyof any;
