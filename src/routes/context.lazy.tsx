@@ -1,6 +1,7 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import Section from "../components/context/Section";
-import Element from "../components/context/Element";
+
+import Section from "@components/context/Section";
+import Element from "@components/context/Element";
 
 export const Route = createLazyFileRoute("/context")({
   component: UseContext,

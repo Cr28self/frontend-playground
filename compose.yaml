@@ -1,0 +1,31 @@
+services:
+  web:
+    # * we use depends_on to specify that service depends on another service
+    # in this case, we specify that the web depends on the api service
+    # ! this means that the api service will be started before the web service ( using depends_on)
+    # ! 여기서 정의한 api서비스가 web서비스보다 먼저 시작됨 ( api가 시작되어야, web에서 fetch가능하므로.. )
+    # *specify the build context for the web service
+    # !this is the directory where the Dockerfile for the web service is located
+    # ! dockerfile의 위치 ( web으로 서비스 시작할 프로젝트의 )
+    build:
+      context: .
+
+    ports:
+      - 5173:5173
+
+    # ! this is for docker compose watch mode
+    #* anything mentioned under develop will be watched for changes by docker compose watch and it will perform the action mentioned
+    develop:
+      # !we specify the files to watch for changes
+      watch:
+        # it'll watch for changes in package.json and package-lock.json and rebuild the container if there are any changes
+        # * package.json과 package-lock.json이 변경되는걸 감시하고 만약 변경되면 rebuild 액셩 수행
+        - path: ./package.json
+          action: rebuild
+        - path: ./pnpm-lock.yaml
+          action: rebuild
+        # *it'll watch for changes in the frontend directory and sync the changes with the container real time
+        # * frontend directory이 변경되는걸 감시하고 만약 변경되면 sync 액션 수행 ( target은 컨테이너의 /app 디렉토리로 )
+        - path: ./
+          target: /app
+          action: sync

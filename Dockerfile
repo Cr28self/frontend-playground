@@ -1,56 +1,31 @@
-FROM node:20-alpine AS build
+# set the base image to create the image for react app
+# docker built -t( tag ) 
+FROM node:21-alpine
 
 
-# create a user with permissions to run the app
-# -S -> create a system user
-# -G -> add the user to a group
-# This is done to avoid running the app as root ( root user )
-# If the app is run as root, any vulnerability in the app can be exploited to gain access to the host system
-# It's a good practice to run the app as a non-root user
-RUN addgroup app && adduser -S -G app app
+# pnpm 설치
+RUN npm install -g pnpm
 
-# set the user to run the app
-USER app
-
+# set the working directory to /app
 WORKDIR /app
 
 # copy package.json and package-lock.json to the working directory
 # This is done before copying the rest of the files to take advantage of Docker’s cache
 # If the package.json and package-lock.json files haven’t changed, Docker will use the cached dependencies
-COPY package*.json ./
+# 종속성 파일 복사 및 설치
+COPY pnpm-lock.yaml ./
+COPY package.json ./
+RUN pnpm install
 
-# sometimes the ownership of the files in the working directory is changed to root
-# and thus the app can't access the files and throws an error -> EACCES: permission denied
-# to avoid this, change the ownership of the files to the root user
-# 작업 디렉토리 ( /app )의 권한을 변경하기 위해서 임시로 root유저로 변경 ( app -> root )
-USER root
+# npm 설치 ( 이미지에 설치됨 )
+RUN pnpm install
 
-# change the ownership of the /app directory to the app user
-# chown -R <user>:<group> <directory>
-# chown command changes the user and/or group ownership of for given file.
-# 루트 유저로 변경 후, /app 디렉토리의 권한 변경
-RUN chown -R app:app .
-
-# change the user back to the app user
-# 다시 app유저로 변경
-USER app
-
-# install dependencies
-RUN npm install
-
-# Copy all files and build the app
+# copy the rest of the files to the working directory
+# 나머지 전체 파일을 작업 디렉토리로 복사
 COPY . .
-RUN npm run build
 
-# Step 2: Serve the application using Nginx
-FROM nginx:alpine
+# expose port 5173 to tell Docker that the container listens on the specified network ports at runtime
+EXPOSE 5173
 
-
-# Copy the build output to Nginx's static files directory
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+# command to run the app
+CMD ["pnpm", "run", "dev"]
