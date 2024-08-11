@@ -10,6 +10,7 @@ services:
     build:
       context: .
       target: development
+    image: sanghyunoh/frontend-playground-dev:latest
 
     ports:
       - 5173:5173
@@ -34,3 +35,4 @@ services:
     build:
       context: .
       target: production
+    image: sanghyunoh/frontend-playground-prod:latest
