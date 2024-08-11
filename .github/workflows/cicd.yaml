@@ -20,5 +20,5 @@ jobs:
 
       - name: Build Docker Image for Production
         run: |
-          docker compose -f compose.prod.yml build
+          docker compose -f compose.prod.yaml build
           docker compose push
