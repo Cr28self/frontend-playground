@@ -80,6 +80,27 @@ function ReviewGrid() {
       ref={containerRef}
       className="relative grid grid-cols-1 h-[49rem] max-h-[150vh] px-4 -mx-4 overflow-hidden md:grid-cols-2 lg:grid-cols-3"
     >
+      {/* 
+      // !div>p*3
+       */}
+      <div>
+        <p></p>
+        <p></p>
+        <p></p>
+      </div>
+
+      {/* 
+      // !div.container>p.title*5 
+      */}
+      <div className="container">
+      <div className="container">
+      <div className="container">
+        <p className="title"></p>
+        <p className="title"></p>
+        <p className="title"></p>
+        <p className="title"></p>
+        <p className="title"></p>
+      </div>
       <ReviewColumn
         reviews={[...column1, ...column3.flat(), ...column2]}
         msPerPixel={10}
@@ -98,17 +119,18 @@ function ReviewGrid() {
   );
 }
 
-const Reviews = () => {
+const Reviewss = () => {
+  console.log("123");
   return (
     <MaxWidthWrapper className="relative max-w-5xl">
       <img
         aria-hidden={"true"}
         src={"/what-people-are-buying.png"}
-        className="absolute hidden select-none  -left-32 top-1/3 xl:block"
+        className="absolute hidden select-none -left-32 top-1/3 xl:block"
       />
       <ReviewGrid />
     </MaxWidthWrapper>
   );
 };
 
-export default Reviews;
+export default Reviewss;

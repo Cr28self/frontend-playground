@@ -11,6 +11,7 @@ export const Route = createLazyFileRoute("/context")({
 
 function UseContext() {
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
   console.log(mediaQuery.matches);
   return (
     <div className={`${mediaQuery.matches ? "dark" : "light"}`}>

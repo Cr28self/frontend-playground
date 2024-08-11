@@ -51,3 +51,34 @@ function add<T extends NumberString>(a: T, b: T): T {
 }
 const sumNumber = add<number>(1, 2);
 const sumString = add<string>("a", "b");
+
+///
+const COLORS = [
+  {
+    label: "Black",
+    value: "black",
+    tw: "zinc-900",
+  },
+  {
+    label: "Blue",
+    value: "blue",
+    tw: "blue-950",
+  },
+  {
+    labe: "Rose",
+    value: "rose",
+    tw: "rose-950",
+  },
+] as const;
+
+// ! as const 로 지정한 타입은 앞에 typeof 붙이면 리터럴 타입으로 사용 가능
+type color = typeof COLORS;
+
+// ! (typeof COLORS)[number] -->  COLORS 배열의 요소 중 하나의 타입 가리킴 ( OR )
+type colorElement = (typeof COLORS)[number];
+
+
+function getColor(color: colorElement) {
+  
+  color.
+}

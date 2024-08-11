@@ -64,6 +64,9 @@ export const Route = createRootRoute({
               <NavItem href="/builder-demo" className="[&.active]:font-bold ">
                 Builder
               </NavItem>
+              <NavItem href="/transition" className="[&.active]:font-bold ">
+                Transition
+              </NavItem>
             </div>
             <div className="flex self-stretch gap-3 my-auto">
               <SocialIcon

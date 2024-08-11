@@ -15,11 +15,12 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as ReducerImport } from './routes/reducer'
 import { Route as FigmaImport } from './routes/figma'
-import { Route as BuilderDemoImport } from './routes/builder-demo'
 
 // Create Virtual Routes
 
+const TransitionLazyImport = createFileRoute('/transition')()
 const ReviewLazyImport = createFileRoute('/review')()
+const QueryLazyImport = createFileRoute('/query')()
 const LoginLazyImport = createFileRoute('/login')()
 const ContextLazyImport = createFileRoute('/context')()
 const AboutLazyImport = createFileRoute('/about')()
@@ -29,10 +30,20 @@ const AuthLoginLazyImport = createFileRoute('/auth/login')()
 
 // Create/Update Routes
 
+const TransitionLazyRoute = TransitionLazyImport.update({
+  path: '/transition',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/transition.lazy').then((d) => d.Route))
+
 const ReviewLazyRoute = ReviewLazyImport.update({
   path: '/review',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/review.lazy').then((d) => d.Route))
+
+const QueryLazyRoute = QueryLazyImport.update({
+  path: '/query',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/query.lazy').then((d) => d.Route))
 
 const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
@@ -56,11 +67,6 @@ const ReducerRoute = ReducerImport.update({
 
 const FigmaRoute = FigmaImport.update({
   path: '/figma',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const BuilderDemoRoute = BuilderDemoImport.update({
-  path: '/builder-demo',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -88,13 +94,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/builder-demo': {
-      id: '/builder-demo'
-      path: '/builder-demo'
-      fullPath: '/builder-demo'
-      preLoaderRoute: typeof BuilderDemoImport
       parentRoute: typeof rootRoute
     }
     '/figma': {
@@ -132,11 +131,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginLazyImport
       parentRoute: typeof rootRoute
     }
+    '/query': {
+      id: '/query'
+      path: '/query'
+      fullPath: '/query'
+      preLoaderRoute: typeof QueryLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/review': {
       id: '/review'
       path: '/review'
       fullPath: '/review'
       preLoaderRoute: typeof ReviewLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/transition': {
+      id: '/transition'
+      path: '/transition'
+      fullPath: '/transition'
+      preLoaderRoute: typeof TransitionLazyImport
       parentRoute: typeof rootRoute
     }
     '/auth/login': {
@@ -160,13 +173,14 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
-  BuilderDemoRoute,
   FigmaRoute,
   ReducerRoute,
   AboutLazyRoute,
   ContextLazyRoute,
   LoginLazyRoute,
+  QueryLazyRoute,
   ReviewLazyRoute,
+  TransitionLazyRoute,
   AuthLoginLazyRoute,
   AuthRegisterLazyRoute,
 })
@@ -180,22 +194,20 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/builder-demo",
         "/figma",
         "/reducer",
         "/about",
         "/context",
         "/login",
+        "/query",
         "/review",
+        "/transition",
         "/auth/login",
         "/auth/register"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
-    },
-    "/builder-demo": {
-      "filePath": "builder-demo.tsx"
     },
     "/figma": {
       "filePath": "figma.tsx"
@@ -212,8 +224,14 @@ export const routeTree = rootRoute.addChildren({
     "/login": {
       "filePath": "login.lazy.tsx"
     },
+    "/query": {
+      "filePath": "query.lazy.tsx"
+    },
     "/review": {
       "filePath": "review.lazy.tsx"
+    },
+    "/transition": {
+      "filePath": "transition.lazy.tsx"
     },
     "/auth/login": {
       "filePath": "auth/login.lazy.tsx"
