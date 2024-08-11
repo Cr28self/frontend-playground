@@ -1,4 +1,4 @@
-name:CICD
+name: CICD
 
 on:
   push:
@@ -17,4 +17,3 @@ jobs:
         run: |
           docker-compose build --target app-prod --force-recreate
           docker-compose push
-
