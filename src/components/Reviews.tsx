@@ -92,8 +92,7 @@ function ReviewGrid() {
       {/* 
       // !div.container>p.title*5 
       */}
-      <div className="container">
-      <div className="container">
+
       <div className="container">
         <p className="title"></p>
         <p className="title"></p>

@@ -1,14 +1,15 @@
 services:
-  web:
+  app-dev:
     # * we use depends_on to specify that service depends on another service
     # in this case, we specify that the web depends on the api service
     # ! this means that the api service will be started before the web service ( using depends_on)
     # ! 여기서 정의한 api서비스가 web서비스보다 먼저 시작됨 ( api가 시작되어야, web에서 fetch가능하므로.. )
     # *specify the build context for the web service
     # !this is the directory where the Dockerfile for the web service is located
-    # ! dockerfile의 위치 ( web으로 서비스 시작할 프로젝트의 )
+    # ! dockerfile의 위치 ( app-dev으로 서비스 시작할 프로젝트의 )
     build:
       context: .
+      target: development
 
     ports:
       - 5173:5173
@@ -29,3 +30,7 @@ services:
         - path: ./
           target: /app
           action: sync
+  app-prod:
+    build:
+      context: .
+      target: production
