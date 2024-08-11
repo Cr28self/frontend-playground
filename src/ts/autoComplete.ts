@@ -76,9 +76,3 @@ type color = typeof COLORS;
 
 // ! (typeof COLORS)[number] -->  COLORS 배열의 요소 중 하나의 타입 가리킴 ( OR )
 type colorElement = (typeof COLORS)[number];
-
-
-function getColor(color: colorElement) {
-  
-  color.
-}
