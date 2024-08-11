@@ -1,0 +1,6 @@
+services:
+  app-prod:
+    build:
+      context: .
+      target: production
+    image: sanghyunoh/frontend-playground-prod:latest
