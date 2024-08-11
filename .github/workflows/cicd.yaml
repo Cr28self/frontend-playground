@@ -20,5 +20,5 @@ jobs:
 
       - name: Build Docker Image for Production
         run: |
-          docker compose build --target app-prod --force-recreate
+          docker compose build --target=app-prod --force-recreate
           docker compose push
