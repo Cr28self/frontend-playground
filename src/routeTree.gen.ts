@@ -44,7 +44,7 @@ const ReviewLazyRoute = ReviewLazyImport.update({
 const QueryCrudLazyRoute = QueryCrudLazyImport.update({
   path: '/queryCrud',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/queryCrud.lazy).then((d) => d.Route))
+} as any).lazy(() => import('./routes/queryCrud.lazy').then((d) => d.Route))
 
 const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
