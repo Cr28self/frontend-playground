@@ -1,4 +1,4 @@
-import { cn } from "../lib/style";
+import { cn } from "@/lib/style";
 import { HTMLAttributes } from "react";
 
 interface PhoneProps extends HTMLAttributes<HTMLDivElement> {

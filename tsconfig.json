@@ -8,11 +8,9 @@
     "moduleDetection": "force",
     "esModuleInterop": true,
 
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@components/*": ["components/*"],
-      "@types/*": ["types/*"],
-      "@utils/*": ["utils/*"]
+      "@/*": ["./src/*"]
     },
 
     /* Bundler mode */
@@ -31,5 +29,6 @@
   },
 
   "include": ["src"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

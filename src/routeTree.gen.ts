@@ -20,8 +20,9 @@ import { Route as FigmaImport } from './routes/figma'
 
 const TransitionLazyImport = createFileRoute('/transition')()
 const ReviewLazyImport = createFileRoute('/review')()
-const QueryLazyImport = createFileRoute('/query')()
+const QueryCrudLazyImport = createFileRoute('/queryCrud')()
 const LoginLazyImport = createFileRoute('/login')()
+const InfiniteScrollLazyImport = createFileRoute('/infiniteScroll')()
 const ContextLazyImport = createFileRoute('/context')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
@@ -40,15 +41,22 @@ const ReviewLazyRoute = ReviewLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/review.lazy').then((d) => d.Route))
 
-const QueryLazyRoute = QueryLazyImport.update({
-  path: '/query',
+const QueryCrudLazyRoute = QueryCrudLazyImport.update({
+  path: '/queryCrud',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/query.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/queryCrud.lazy).then((d) => d.Route))
 
 const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+
+const InfiniteScrollLazyRoute = InfiniteScrollLazyImport.update({
+  path: '/infiniteScroll',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/infiniteScroll.lazy').then((d) => d.Route),
+)
 
 const ContextLazyRoute = ContextLazyImport.update({
   path: '/context',
@@ -124,6 +132,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContextLazyImport
       parentRoute: typeof rootRoute
     }
+    '/infiniteScroll': {
+      id: '/infiniteScroll'
+      path: '/infiniteScroll'
+      fullPath: '/infiniteScroll'
+      preLoaderRoute: typeof InfiniteScrollLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -131,11 +146,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginLazyImport
       parentRoute: typeof rootRoute
     }
-    '/query': {
-      id: '/query'
-      path: '/query'
-      fullPath: '/query'
-      preLoaderRoute: typeof QueryLazyImport
+    '/queryCrud': {
+      id: '/queryCrud'
+      path: '/queryCrud'
+      fullPath: '/queryCrud'
+      preLoaderRoute: typeof QueryCrudLazyImport
       parentRoute: typeof rootRoute
     }
     '/review': {
@@ -177,8 +192,9 @@ export const routeTree = rootRoute.addChildren({
   ReducerRoute,
   AboutLazyRoute,
   ContextLazyRoute,
+  InfiniteScrollLazyRoute,
   LoginLazyRoute,
-  QueryLazyRoute,
+  QueryCrudLazyRoute,
   ReviewLazyRoute,
   TransitionLazyRoute,
   AuthLoginLazyRoute,
@@ -198,8 +214,9 @@ export const routeTree = rootRoute.addChildren({
         "/reducer",
         "/about",
         "/context",
+        "/infiniteScroll",
         "/login",
-        "/query",
+        "/queryCrud",
         "/review",
         "/transition",
         "/auth/login",
@@ -221,11 +238,14 @@ export const routeTree = rootRoute.addChildren({
     "/context": {
       "filePath": "context.lazy.tsx"
     },
+    "/infiniteScroll": {
+      "filePath": "infiniteScroll.lazy.tsx"
+    },
     "/login": {
       "filePath": "login.lazy.tsx"
     },
-    "/query": {
-      "filePath": "query.lazy.tsx"
+    "/queryCrud": {
+      "filePath": "queryCrud.lazy.tsx"
     },
     "/review": {
       "filePath": "review.lazy.tsx"

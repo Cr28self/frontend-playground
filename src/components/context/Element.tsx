@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { LevelContext } from "../../lib/context";
+import { LevelContext } from "@/lib/context";
 
 // Context Consumer
 const Element = () => {

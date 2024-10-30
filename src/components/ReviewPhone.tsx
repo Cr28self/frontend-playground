@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { cn } from "../lib/style";
+import { cn } from "@/lib/style";
 import Phone from "./Phone";
 
 interface ReviewProps extends HTMLAttributes<HTMLDivElement> {

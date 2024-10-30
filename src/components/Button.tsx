@@ -1,26 +1,12 @@
 import React from "react";
-import { cn } from "../lib/style";
+import { cn } from "@/lib/style";
 
 interface testButtonProps {
-  label: string;
-
   size?: "small" | "medium" | "large";
+  children: React.ReactNode;
 }
 
-// .storybook-button--small {
-//     font-size: 12px;
-//     padding: 10px 16px;
-//   }
-//   .storybook-button--medium {
-//     font-size: 14px;
-//     padding: 11px 20px;
-//   }
-//   .storybook-button--large {
-//     font-size: 16px;
-//     padding: 12px 24px;
-//   }
-
-const Button = ({ label, size, ...props }: testButtonProps) => {
+const Button = ({ size, children, ...props }: testButtonProps) => {
   return (
     <button
       className={cn(
@@ -31,8 +17,9 @@ const Button = ({ label, size, ...props }: testButtonProps) => {
           "text-lg px-32 py-16": size === "large",
         }
       )}
+      {...props}
     >
-      {label}
+      {children}
     </button>
   );
 };

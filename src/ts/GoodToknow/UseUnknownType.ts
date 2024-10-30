@@ -29,6 +29,14 @@ function isJustUser(object: unknown): object is IUser {
   return false;
 }
 
+const obj: unknown = "hello";
+
+if (obj) {
+  obj;
+} else {
+  obj;
+}
+
 async function fetchData() {
   const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
   // const badUser = await res.json();

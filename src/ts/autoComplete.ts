@@ -21,8 +21,6 @@ type Point = {
   y: number;
 };
 
-Partial<Point>;
-
 function printPoint(point: Partial<Point>) {
   // 자동완성으로 'point' 객체의 속성에 접근
   console.log(`x: ${point.x}, y: ${point.y}`);
